@@ -3,7 +3,7 @@ import React,{useEffect,useState} from 'react';
  import Icon from 'react-native-vector-icons/Ionicons';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
-
+import Voice from '@react-native-community/voice';
 
 const Home=(props)=>{
     
@@ -25,7 +25,7 @@ const Home=(props)=>{
         const res = await fetch("https://libretranslate.de/translate", {
             method: "POST",
             body: JSON.stringify({
-                q:values.Description,
+                q:speech==0?values.Description:translatedText2,
                 source: Flang,
                 target: Llang,
                 format: "text",
@@ -37,15 +37,99 @@ const Home=(props)=>{
         setTranslatedText(x.translatedText)
     
     }
+    const onSpeechStart = (e) => {
+      //Invoked when .start() is called without error
+      console.log('onSpeechStart: ', e);
+      setStarted('√');
+    };
    
+    const onSpeechEnd = (e) => {
+      //Invoked when SpeechRecognizer stops recognition
+      console.log('onSpeechEnd: ', e);
+      setEnd('√');
+      setTranslatedText2(partialResults)
+      libreTranslate()
+      
+    };
+   
+    const onSpeechError = (e) => {
+      //Invoked when an error occurs.
+      console.log('onSpeechError: ', e);
+      setError(JSON.stringify(e.error));
+    };
+   
+    const onSpeechResults = (e) => {
+      //Invoked when SpeechRecognizer is finished recognizing
+      console.log('onSpeechResults: ', e);
+      setResults(e.value);
+    };
+   
+    const onSpeechPartialResults = (e) => {
+      //Invoked when any results are computed
+      console.log('onSpeechPartialResults: ', e);
+      setPartialResults(e.value);
+      setTranslatedText2(partialResults)
+      libreTranslate()
+    };
+   
+    const onSpeechVolumeChanged = (e) => {
+      //Invoked when pitch that is recognized changed
+      console.log('onSpeechVolumeChanged: ', e);
+      setPitch(e.value);
+    };
 
+
+    const startRecognizing = async () => {
+      //Starts listening for speech for a specific locale
+      setSpeech(1)
+      try {
+        await Voice.start('en-US');
+        setPitch('');
+        setError('');
+        setStarted('');
+        setResults([]);
+        setPartialResults([]);
+        setEnd('');
+        setSpeech(1)
+      } catch (e) {
+        //eslint-disable-next-line
+        console.error(e);
+      }
+    };
    
  
  
     const [translatedText,setTranslatedText]=useState()
+    const [translatedText2,setTranslatedText2]=useState()
     const [Flang,setFlang]=useState('en')
     const [Llang,setLlang]=useState('tr')
-   
+    const [speech,setSpeech]=useState(0)
+
+    const [pitch, setPitch] = useState('');
+    const [error, setError] = useState('');
+    const [end, setEnd] = useState('');
+    const [started, setStarted] = useState('');
+    const [results, setResults] = useState([]);
+    const [partialResults, setPartialResults] = useState([]);
+
+ 
+
+useEffect(()=>{
+    
+  Voice.onSpeechStart = onSpeechStart;
+  Voice.onSpeechEnd = onSpeechEnd;
+  Voice.onSpeechError = onSpeechError;
+  Voice.onSpeechResults = onSpeechResults;
+  Voice.onSpeechPartialResults = onSpeechPartialResults;
+  Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
+
+  return () => {
+    //destroy the process after switching the screen
+    Voice.destroy().then(Voice.removeAllListeners);
+  };
+
+
+},[])
 
 
 
@@ -113,6 +197,7 @@ value={values.Description}
 autoCapitalize='none'
 placeholder='Metin Girin'
 multiline={true}
+onFocus={()=>{setSpeech(0),console.log(speech)}}
 placeholderTextColor={'#616161'}
 onChangeText={handleChange('Description')}
 style={style.inputDescription}
@@ -138,7 +223,27 @@ style={style.AddProductButton}
     <Text style={style.AddProductButtonText}>Çevir</Text>
 </TouchableOpacity>
 
-
+<TouchableOpacity onPress={startRecognizing}>
+          <Image
+            style={style.imageButton}
+            source={{
+              uri:
+                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/microphone.png',
+            }}
+          />
+        </TouchableOpacity>
+       
+        <View >
+          {partialResults.map((result, index) => {
+            return (
+              <Text
+                key={`partial-result-${index}`}
+                style={style.textStyle}>
+                {result}
+              </Text>
+            );
+          })}
+        </View>
       
 </View>
     
