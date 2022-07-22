@@ -1,0 +1,2 @@
+# RiseTechnologyReactNativeTask-VeliMuctebaBayindir
+Translater 
