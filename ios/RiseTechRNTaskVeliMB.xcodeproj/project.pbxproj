@@ -12,6 +12,17 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		247C087B495C4690B837E6BF /* Geomanist-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D30A3F756F3436F8E191490 /* Geomanist-Black.otf */; };
+		A14979CD34E645989CF7FFFF /* Geomanist-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 38CA4B1E935D480390F0ED53 /* Geomanist-Bold.otf */; };
+		764813A3573E4146A2CAF574 /* Geomanist-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3540A64B995C400F91EDE090 /* Geomanist-Book.otf */; };
+		B7DB25117C3043CEBA5490BC /* Geomanist-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13E01A5EFB854991A67AA003 /* Geomanist-ExtraLight.otf */; };
+		F4CAB0B920F34D859DEE22B6 /* Geomanist-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0EAF9E401E04787B893D721 /* Geomanist-Light.ttf */; };
+		D96504D7BABA46768227C0B9 /* Geomanist-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FE01407CCA0543A0A0696D36 /* Geomanist-Medium.otf */; };
+		D43701DA9B204E3AA4BC68FB /* Geomanist-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F9EA86BA9524E31B1CF0C6C /* Geomanist-Regular.otf */; };
+		27C029076EAF44458AE63E38 /* Geomanist-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 607A06662EC046BB845E8637 /* Geomanist-Thin.ttf */; };
+		3BF4DED419A0460AB724DEA5 /* Geomanist-Ultra.otf in Resources */ = {isa = PBXBuildFile; fileRef = 58B5F1E4D22B4D788B5ED5CF /* Geomanist-Ultra.otf */; };
+		E4E2B77A4CEC48C7905F2DE6 /* KdamThmorPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6CA3F57664C4F148112023C /* KdamThmorPro-Regular.ttf */; };
+		F43110EABAF5445BA7ADB78E /* Spantaran.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E8CDF6378D74DF79867B6BB /* Spantaran.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +47,17 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RiseTechRNTaskVeliMB/main.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RiseTechRNTaskVeliMB/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		4D30A3F756F3436F8E191490 /* Geomanist-Black.otf */ = {isa = PBXFileReference; name = "Geomanist-Black.otf"; path = "../assets/Fonts/Geomanist-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		38CA4B1E935D480390F0ED53 /* Geomanist-Bold.otf */ = {isa = PBXFileReference; name = "Geomanist-Bold.otf"; path = "../assets/Fonts/Geomanist-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3540A64B995C400F91EDE090 /* Geomanist-Book.otf */ = {isa = PBXFileReference; name = "Geomanist-Book.otf"; path = "../assets/Fonts/Geomanist-Book.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		13E01A5EFB854991A67AA003 /* Geomanist-ExtraLight.otf */ = {isa = PBXFileReference; name = "Geomanist-ExtraLight.otf"; path = "../assets/Fonts/Geomanist-ExtraLight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F0EAF9E401E04787B893D721 /* Geomanist-Light.ttf */ = {isa = PBXFileReference; name = "Geomanist-Light.ttf"; path = "../assets/Fonts/Geomanist-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FE01407CCA0543A0A0696D36 /* Geomanist-Medium.otf */ = {isa = PBXFileReference; name = "Geomanist-Medium.otf"; path = "../assets/Fonts/Geomanist-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5F9EA86BA9524E31B1CF0C6C /* Geomanist-Regular.otf */ = {isa = PBXFileReference; name = "Geomanist-Regular.otf"; path = "../assets/Fonts/Geomanist-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		607A06662EC046BB845E8637 /* Geomanist-Thin.ttf */ = {isa = PBXFileReference; name = "Geomanist-Thin.ttf"; path = "../assets/Fonts/Geomanist-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		58B5F1E4D22B4D788B5ED5CF /* Geomanist-Ultra.otf */ = {isa = PBXFileReference; name = "Geomanist-Ultra.otf"; path = "../assets/Fonts/Geomanist-Ultra.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D6CA3F57664C4F148112023C /* KdamThmorPro-Regular.ttf */ = {isa = PBXFileReference; name = "KdamThmorPro-Regular.ttf"; path = "../assets/Fonts/KdamThmorPro-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2E8CDF6378D74DF79867B6BB /* Spantaran.ttf */ = {isa = PBXFileReference; name = "Spantaran.ttf"; path = "../assets/Fonts/Spantaran.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +131,7 @@
 				00E356EF1AD99517003FC87E /* RiseTechRNTaskVeliMBTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				52D11ACDDEEF448B95432913 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -123,6 +146,25 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		52D11ACDDEEF448B95432913 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				4D30A3F756F3436F8E191490 /* Geomanist-Black.otf */,
+				38CA4B1E935D480390F0ED53 /* Geomanist-Bold.otf */,
+				3540A64B995C400F91EDE090 /* Geomanist-Book.otf */,
+				13E01A5EFB854991A67AA003 /* Geomanist-ExtraLight.otf */,
+				F0EAF9E401E04787B893D721 /* Geomanist-Light.ttf */,
+				FE01407CCA0543A0A0696D36 /* Geomanist-Medium.otf */,
+				5F9EA86BA9524E31B1CF0C6C /* Geomanist-Regular.otf */,
+				607A06662EC046BB845E8637 /* Geomanist-Thin.ttf */,
+				58B5F1E4D22B4D788B5ED5CF /* Geomanist-Ultra.otf */,
+				D6CA3F57664C4F148112023C /* KdamThmorPro-Regular.ttf */,
+				2E8CDF6378D74DF79867B6BB /* Spantaran.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -214,6 +256,17 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				247C087B495C4690B837E6BF /* Geomanist-Black.otf in Resources */,
+				A14979CD34E645989CF7FFFF /* Geomanist-Bold.otf in Resources */,
+				764813A3573E4146A2CAF574 /* Geomanist-Book.otf in Resources */,
+				B7DB25117C3043CEBA5490BC /* Geomanist-ExtraLight.otf in Resources */,
+				F4CAB0B920F34D859DEE22B6 /* Geomanist-Light.ttf in Resources */,
+				D96504D7BABA46768227C0B9 /* Geomanist-Medium.otf in Resources */,
+				D43701DA9B204E3AA4BC68FB /* Geomanist-Regular.otf in Resources */,
+				27C029076EAF44458AE63E38 /* Geomanist-Thin.ttf in Resources */,
+				3BF4DED419A0460AB724DEA5 /* Geomanist-Ultra.otf in Resources */,
+				E4E2B77A4CEC48C7905F2DE6 /* KdamThmorPro-Regular.ttf in Resources */,
+				F43110EABAF5445BA7ADB78E /* Spantaran.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

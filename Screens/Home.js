@@ -6,7 +6,20 @@ import * as Yup from 'yup'
 import Voice from '@react-native-community/voice';
 
 const Home=(props)=>{
-    
+
+  const [translatedText,setTranslatedText]=useState('-')//Çevrilen Metinin Atıldığı Değişken
+  const [Flang,setFlang]=useState('en')//Metin Dili
+  const [Llang,setLlang]=useState('tr')//Çevrildiği Dil
+  const [TranstlatedWords,setTranslatedWords]=useState([]) 
+
+  const [pitch, setPitch] = useState('');//Ses Düzeyi Değişkeni
+  const [error, setError] = useState('');//Error Değişkeni
+  const [end, setEnd] = useState('');//Bitme Değişkeni
+  const [started, setStarted] = useState('');//Başlama Değişkeni
+  const [results, setResults] = useState([]);//Sonuç Değişkeni
+  const [partialResults, setPartialResults] = useState([]);//Sonuç Değişkeni
+
+{/*Hangi Dilin Çevrildiğini Anlamak İçin Diller Bir Değişkene Atıldı */}
     const changeLang=()=>{
 
         if(Flang=='en'){
@@ -17,102 +30,105 @@ const Home=(props)=>{
             setFlang('en')
             setLlang('tr')  
         }
-    }
-
+    }  
+  
+    {/* Metin Girildiğinde Libretranslate API kullanılarak çeviri gerçekleştirme*/}
     const libreTranslate=async (values) => {
-        console.log(values)
-
-        const res = await fetch("https://libretranslate.de/translate", {
+       setTranslatedWords(oldArray => [values.MetinGir,...oldArray])
+    const res = await fetch("https://libretranslate.de/translate", {
             method: "POST",
             body: JSON.stringify({
-                q:speech==0?values.Description:translatedText2,
+                q:values.MetinGir,
                 source: Flang,
                 target: Llang,
-                format: "text",
-               
             }),
             headers: { "Content-Type": "application/json" }
         });
-        const x=await res.json()
-        setTranslatedText(x.translatedText)
-    
+      const x=await res.json()
+      setTranslatedText(x.translatedText)
     }
-    const onSpeechStart = (e) => {
-      //Invoked when .start() is called without error
-      console.log('onSpeechStart: ', e);
-      setStarted('√');
+
+
+    {/* Konuşma Bitince Libretranslate API kullanılarak Anlanan Metin Çevrilir */}
+     const onSpeechPartialResults = async (e) => {
+      setPartialResults(e.value)
+      // console.log('onSpeechPartialResults: ', e.value);
+      const res = await fetch("https://libretranslate.de/translate", {
+        method: "POST",
+        body: JSON.stringify({
+            q:e.value,
+            source: Flang,
+            target: Llang,
+           
+           
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+  
+    const x=await res.json()
+ 
+    setTranslatedText(x.translatedText)
     };
-   
+
+
+    {/* Konuşmaya Başlandığında Çağrılır*/}
+    const onSpeechStart = (e) => {
+    
+     
+    };
+
+   {/* Konuşma Bitince Çağrılır*/}
     const onSpeechEnd = (e) => {
-      //Invoked when SpeechRecognizer stops recognition
-      console.log('onSpeechEnd: ', e);
-      setEnd('√');
-      setTranslatedText2(partialResults)
-      libreTranslate()
+
+    };
+
+   {/* Herhangi Bir Hata Oluşursa Çağrılır*/}
+    const onSpeechError = (e) => {
+    
+      setError(JSON.stringify(e.error));
       
     };
-   
-    const onSpeechError = (e) => {
-      //Invoked when an error occurs.
-      console.log('onSpeechError: ', e);
-      setError(JSON.stringify(e.error));
-    };
-   
+
+
+   {/* SpeechRecognizer tanımayı bitirdiğinde çağrılan sonuç*/}
     const onSpeechResults = (e) => {
-      //Invoked when SpeechRecognizer is finished recognizing
-      console.log('onSpeechResults: ', e);
+      
       setResults(e.value);
+   
     };
    
-    const onSpeechPartialResults = (e) => {
-      //Invoked when any results are computed
-      console.log('onSpeechPartialResults: ', e);
-      setPartialResults(e.value);
-      setTranslatedText2(partialResults)
-      libreTranslate()
-    };
-   
+  
+ {/* Mikrofondan gelen sesin düzeyini öğrenme*/}
     const onSpeechVolumeChanged = (e) => {
-      //Invoked when pitch that is recognized changed
-      console.log('onSpeechVolumeChanged: ', e);
+     
       setPitch(e.value);
+     
     };
 
 
+ {/* Dinlemeye Başlama */}
     const startRecognizing = async () => {
-      //Starts listening for speech for a specific locale
-      setSpeech(1)
+      
+      console.log(Flang)
       try {
-        await Voice.start('en-US');
+        await Voice.start(Flang);
         setPitch('');
         setError('');
         setStarted('');
         setResults([]);
         setPartialResults([]);
         setEnd('');
-        setSpeech(1)
+        
       } catch (e) {
-        //eslint-disable-next-line
         console.error(e);
       }
+      
     };
    
+    
  
  
-    const [translatedText,setTranslatedText]=useState()
-    const [translatedText2,setTranslatedText2]=useState()
-    const [Flang,setFlang]=useState('en')
-    const [Llang,setLlang]=useState('tr')
-    const [speech,setSpeech]=useState(0)
 
-    const [pitch, setPitch] = useState('');
-    const [error, setError] = useState('');
-    const [end, setEnd] = useState('');
-    const [started, setStarted] = useState('');
-    const [results, setResults] = useState([]);
-    const [partialResults, setPartialResults] = useState([]);
-
- 
 
 useEffect(()=>{
     
@@ -122,9 +138,8 @@ useEffect(()=>{
   Voice.onSpeechResults = onSpeechResults;
   Voice.onSpeechPartialResults = onSpeechPartialResults;
   Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
-
-  return () => {
-    //destroy the process after switching the screen
+return () => {
+    
     Voice.destroy().then(Voice.removeAllListeners);
   };
 
@@ -133,16 +148,19 @@ useEffect(()=>{
 
 
 
-
+ {/* Diller ve Değiştirme Iconu-- Metin Girilecek TextInput--Çevrilen Metini Yazdırma */}
     return(
        
 <ScrollView style={style.container}>
   
-    
-{
-// Diller ve Değiştirme Iconu
-}
-<View style={{alignItems:'center',justifyContent:'space-evenly',flexDirection:'row',marginTop:80}}>
+    <View style={{alignItems:'center',justifyContent:'center',width:'100%'}}>
+    <Text style={{color:'#546e7a',textTransform:'capitalize',fontSize:26,fontFamily:'Spantaran'}}>Rise VMB Translator</Text>
+
+
+
+    </View>
+ {/* Diller ve Değiştirme Iconu */}
+<View style={{alignItems:'center',justifyContent:'space-evenly',flexDirection:'row',marginTop:20}}>
 <View style={{backgroundColor:'#e0e0e0',width:50,height:50,alignItems:'center',justifyContent:'center',borderRadius:15}}>
 <Text style={{color:'#8d8d8d',textTransform:'capitalize',fontSize:15,fontFamily:'Geomanist-Black'}}>{Flang}</Text>
 
@@ -162,75 +180,57 @@ useEffect(()=>{
 </View>
 </View>
 
-<Formik initialValues={{
-     
-      Description:'',
-     
-      
+ {/* Metin Girilecek TextInput*/}
+<Formik 
+initialValues={{
+     MetinGir:'',
   }}
-  
 onSubmit={libreTranslate}
-  
-  validationSchema={
-      Yup.object().shape({
-    
-
-     Description:Yup.string().required('Lütfen Metin Girin'),
-     
-    })
+validationSchema={
+Yup.object().shape({
+    MetinGir:Yup.string().required('Lütfen Metin Girin'),
+      })
   }
   >
 {({values,handleSubmit,errors,handleChange,isValid,isSubmitting})=>(
 
-    <View style={style.forminput}>
+<View style={style.forminput}>
 
 
-
-
-
-
-
-     {/* DESCRIPTION */}
-        <View style={style.inputContainer}>
+{/* Metin Girilem TextInput */}
+<View style={style.inputContainer}>
 <TextInput 
-value={values.Description}
+value={values.MetinGir}
 autoCapitalize='none'
 placeholder='Metin Girin'
 multiline={true}
-onFocus={()=>{setSpeech(0),console.log(speech)}}
+textAlignVertical={'top'}
+textAlign={'center'}
 placeholderTextColor={'#616161'}
-onChangeText={handleChange('Description')}
-style={style.inputDescription}
+onChangeText={handleChange('MetinGir')}
+style={style.inputMetinGir}
 />
 
-{(errors.Description)&&<Text style={{color:'#e57373',fontSize:18,fontFamily:'sans-serif-condensed'}}>{errors.Description}</Text>}
+{(errors.MetinGir)&&<Text style={{color:'#e57373',fontSize:18,fontFamily:'sans-serif-condensed'}}>{errors.MetinGir}</Text>}
         </View>
 
 
-
-
-      
-
-
-
- 
-{/* ADD PRODUCT BUTTON */}
+{/* Çevir Butonu */}
 <TouchableOpacity
-style={style.AddProductButton}
+style={style.CevirButon}
  onPress={handleSubmit}
 
 >
-    <Text style={style.AddProductButtonText}>Çevir</Text>
+    <Text style={style.CevirButonText}>Çevir</Text>
 </TouchableOpacity>
 
-<TouchableOpacity onPress={startRecognizing}>
-          <Image
-            style={style.imageButton}
-            source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/microphone.png',
-            }}
-          />
+
+{/* Mikrofon simgesi ve mikrofondan gelen ses */}
+<TouchableOpacity onPress={()=>startRecognizing()} style={{marginBottom:10,alignItems:'center',justifyContent:'center',backgroundColor:'#b3e5fc',borderRadius:50,width:80,height:80}}>
+<Icon  name={Platform.OS === "ios" ? "ios-add" : "mic-outline"}
+  color={'black'}
+  size={30}
+      />
         </TouchableOpacity>
        
         <View >
@@ -238,40 +238,42 @@ style={style.AddProductButton}
             return (
               <Text
                 key={`partial-result-${index}`}
-                style={style.textStyle}>
+                >
                 {result}
               </Text>
             );
           })}
+
         </View>
-      
-</View>
+
+
+
+        </View>
+
     
 )}
 
   </Formik>
-  <View style={{alignSelf:'center',backgroundColor:'#cfd8dc',width:300,height:150,alignItems:'center',justifyContent:'center',borderRadius:15}}>
 
-   <Text style={{alignSelf:'center',fontSize:15,color:'black'}}>{translatedText}</Text>
+ {/* Çevrilen Metini Yazdırma */}
+  <View style={{marginBottom:75,alignSelf:'center',backgroundColor:'#cfd8dc',width:300,height:150,alignItems:'center',justifyContent:'center',borderRadius:15}}>
+
+  <Text style={{color:'gray',textTransform:'capitalize',fontSize:15,fontFamily:'KdamThmorPro-Regular'}}>{translatedText}</Text>
+
   </View>
  
 </ScrollView>
 
     )
 }
+
+
 const style=StyleSheet.create({
     container:{
     
         flex:1
     },
   
-
-
-  
-
-
-
-
 input:{
     width:300,
     height:50, 
@@ -280,9 +282,9 @@ input:{
     ,borderColor:'black',
     borderWidth:2
 },
-inputDescription:{
+inputMetinGir:{
     width:300,
-    height:100, 
+    height:150, 
     borderRadius:15,
     alignSelf:'flex-start',
     backgroundColor:'#cfd8dc'
@@ -302,18 +304,18 @@ inputContainer:{
     justifyContent:'center',
    
 },
-AddProductButton:{
+CevirButon:{
     alignItems:'center',
     justifyContent:'center',
-    backgroundColor:'black',
+    backgroundColor:'#1c313a',
     borderRadius:5,
   
-    marginTop:45,
+    marginTop:35,
     height:43,
-    marginBottom:100,
+    marginBottom:20,
 },
 
-AddProductButtonText:{
+CevirButonText:{
 color:'white'
 ,fontSize:15,
 marginHorizontal:15,
