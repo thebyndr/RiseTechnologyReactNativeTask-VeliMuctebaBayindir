@@ -1,2 +1,2 @@
-# Rise Technology React Native Taski TRANSLATOR
+# Rise Technology React Native Task-TRANSLATOR
 
