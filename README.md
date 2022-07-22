@@ -1,2 +1,2 @@
-# RiseTechnologyReactNativeTask-VeliMuctebaBayindir
-Translater 
+# Rise Technology React Native Taski TRANSLATOR
+
