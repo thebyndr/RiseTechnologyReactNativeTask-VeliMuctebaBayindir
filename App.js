@@ -18,7 +18,7 @@ import {
  } from 'react-native';
  import { NavigationContainer } from "@react-navigation/native";
 
- import Appp from './Navigation/Navigation';
+ import Application from './Navigation/Navigation';
 
 
 const App:() => Node=()=>{
@@ -27,7 +27,7 @@ const App:() => Node=()=>{
   return (
     <SafeAreaView style={{flex:1}}>
 
-<Appp/>
+<Application/>
 
 
     </SafeAreaView>
